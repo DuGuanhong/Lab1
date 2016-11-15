@@ -9,32 +9,8 @@ class node {
 	}
 }
 
-public class H2 {
-	public static void main(String args[]) {
-		Scanner in = new Scanner(System.in);
-		String ori = in.nextLine();   //读入表达式
-		if (Check(ori)) {   //判断表达式是否合法
-			System.out.println("Error!");
-			return;
-		}
-		System.out.println("Success!");  
-		ori = preStr(ori);   //效果：将所有digit×digit类型的子串合并为一个数字，并且删除所有乘号
-		node [] s = new node[205];
-		int n = Pre(ori, s);//预处理分割+号
-		Combination(n, s);//效果：表达式形式转为：digit （*）character
-		while (in.hasNext()) {
-			String Choice = in.nextLine();
-			if (CheckDer(Choice, n, s)) {//是否是求导？
-				derivative(n, Choice.charAt(5), s); //求导
-			} else if (CheckSim(Choice, n, s)) {//是否是求值？
-				simplify(Choice, n, s);  //求值
-			} else {
-				System.out.println("Error!");
-			}
-			n = expression(n, s); //化简
-			Print(n, s);  //输出
-		}
-	}
+public class lab1 {
+	
 	static boolean Judge(String s) {  //判断表达式是否为0
 		String tmp = "";
 		for (int i = 0; i < s.length(); i++) {
@@ -221,6 +197,7 @@ public class H2 {
 			if (ori.charAt(i) >= 'a' && ori.charAt(i) <= 'z') continue;
 			if (ori.charAt(i) == '+' || ori.charAt(i) == '*') continue;
 			return true;// 合法字符检查
+			
 		}
 		if (ori.charAt(0) == '+' || ori.charAt(ori.length() - 1) == '+') return true;
 		if (ori.charAt(0) == '*' || ori.charAt(ori.length() - 1) == '*') return true;
@@ -306,5 +283,29 @@ public class H2 {
 		return n;//合并常数项
 	}
 	
-
+	public static void main(String args[]) {
+		Scanner in = new Scanner(System.in);
+		String ori = in.nextLine();   //读入表达式
+		if (Check(ori)) {   //判断表达式是否合法
+			System.out.println("Error!");
+			return;
+		}
+		System.out.println("Success!");  
+		ori = preStr(ori);   //效果：将所有digit×digit类型的子串合并为一个数字，并且删除所有乘号
+		node [] s = new node[205];
+		int n = Pre(ori, s);//预处理分割+号
+		Combination(n, s);//效果：表达式形式转为：digit （*）character
+		while (in.hasNext()) {
+			String Choice = in.nextLine();
+			if (CheckDer(Choice, n, s)) {//是否是求导？
+				derivative(n, Choice.charAt(5), s); //求导
+			} else if (CheckSim(Choice, n, s)) {//是否是求值？
+				simplify(Choice, n, s);  //求值
+			} else {
+				System.out.println("Error!");
+			}
+			n = expression(n, s); //化简
+			Print(n, s);  //输出
+		}
+	}
 }
